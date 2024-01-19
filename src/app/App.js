@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './App.css'; 
+import styles from './App.module.css';
 import {SearchBar} from '../features/search/Search'
 import {SearchResults} from '../components/SearchResults'
 import {Sidebar} from '../features/Sidebar'
@@ -19,8 +19,10 @@ function App() {
 
   return (
     <>
-    <SearchBar/>    
     <div>
+      <SearchBar/>
+    </div>    
+    <div className={styles.mainInfo}>
       <SearchResults />
       <Sidebar />
     </div>

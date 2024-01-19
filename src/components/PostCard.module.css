@@ -1,0 +1,32 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 0.25rem;
+}
+
+.cardInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem  
+}
+.cardInfo img{    
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.cardInfo p{
+    color: rgb(163, 26, 26);
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.text{
+    max-height: 250px;
+    overflow: hidden;
+    line-height: 1.5rem;
+}

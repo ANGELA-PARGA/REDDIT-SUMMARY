@@ -1,0 +1,27 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem
+}
+
+.cardTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem  
+}
+.cardTitle img, .cardTitle i {    
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.subredditName {
+    color: rgb(163, 26, 26);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.text p{
+    font-size: 0.75rem;
+}

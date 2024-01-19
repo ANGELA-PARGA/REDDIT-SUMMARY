@@ -1,0 +1,21 @@
+.headerDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1{
+    color: rgb(163, 26, 26);
+    font-size: 1rem;
+}
+
+.logo{
+    display: flex;
+    gap: 1rem;
+    margin: 0 2rem;
+    padding: 0.5rem 0;
+}
+
+.headerDiv form{
+    margin: 0 2rem 0 0;
+}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchSearchData } from './searchSlice';
 import { fetchSubredditsbySearch } from '../sidebarSlice'
+import ICON from '../../assets/ICON.png'
+import styles from './Search.module.css'
 
 export function SearchBar() {
   const [search, setSearch] = useState('');
@@ -18,12 +20,15 @@ export function SearchBar() {
   }
 
   return (
-    <div>
-      <img src="" alt="logo" />
+    <div className={styles.headerDiv}>
+      <div className={styles.logo}>
+        <img src={ICON} alt="logo" />
+        <h1>ReddTrack</h1>
+      </div>
       <form 
           onSubmit={handlerOnSubmit}                
       >
-          <label htmlFor="inputSearch">Search:</label>
+          <label htmlFor="inputSearch"></label>
           <input 
               id="inputSearch" 
               type="text"
@@ -31,7 +36,6 @@ export function SearchBar() {
               value={search} 
               onChange={handleSearchChange}
           />
-          <button type='submit'>Search</button>
       </form>
     </div>
   );

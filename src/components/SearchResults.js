@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectSearchResults, selectSearchStatus, selectSearchError } from '../features/search/searchSlice';
 import {PostCard} from "./PostCard"
 import { UilSpinnerAlt, UilSyncExclamation} from '@iconscout/react-unicons'
+import styles from './SearchResults.module.css'
 
 
 export function SearchResults() {
@@ -30,7 +31,7 @@ export function SearchResults() {
         
     if (searchStatus === 'fulfilled') {
         return (
-        <div>
+        <div className={styles.gridResult}>
             {searchResults.map((result) => (
             <PostCard key={result.id} data={result} />
             ))}
