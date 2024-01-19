@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { selectSidebarResults, selectSidebarStatus, selectSidebarError } from '../features/sidebarSlice';
 import { SubredditCard } from '../components/SubredditCard';
+import { UilSpinnerAlt, UilSyncExclamation} from '@iconscout/react-unicons'
+
 
 
 export function Sidebar() {
@@ -11,7 +13,7 @@ export function Sidebar() {
     if (sidebarStatus === 'loading') {
         return (
             <div>
-                <img src="ruta/a/imagen-de-carga.gif" alt="Cargando..." />
+                < UilSpinnerAlt size={100} color='#D42B2B'/>
                 <p>Cargando...</p>
             </div>
             );
@@ -20,6 +22,7 @@ export function Sidebar() {
     if (sidebarStatus === 'error') {
         return (
         <div>
+            < UilSyncExclamation size={100} color='#D42B2B'/>
             <p>Hubo un error: {sidebarError}</p>
         </div>
         );

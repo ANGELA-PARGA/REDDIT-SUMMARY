@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectSearchResults, selectSearchStatus, selectSearchError } from '../features/search/searchSlice';
 import {PostCard} from "./PostCard"
+import { UilSpinnerAlt, UilSyncExclamation} from '@iconscout/react-unicons'
 
 
 export function SearchResults() {
@@ -11,7 +12,7 @@ export function SearchResults() {
     if (searchStatus === 'loading') {
         return (
             <div>
-                <img src="ruta/a/imagen-de-carga.gif" alt="Cargando..." />
+                <UilSpinnerAlt size={100} color='#D42B2B'/> 
                 <p>Cargando...</p>
             </div>
             );
@@ -20,7 +21,9 @@ export function SearchResults() {
     if (searchStatus === 'error') {
         return (
         <div>
+            <UilSyncExclamation size={100} color='#D42B2B'/> 
             <p>Hubo un error: {searchError}</p>
+            <p>Por favor intenté más tarde</p>
         </div>
         );
     }
