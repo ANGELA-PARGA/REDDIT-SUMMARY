@@ -1,18 +1,30 @@
 .card{
     display: flex;
     flex-direction: column;
-    max-height: 400px;
     background-color: white;
-    padding: 5px 10px;
+    padding: 10px 20px;
     border-radius: 0.25rem;
+}
+
+.card span{
+    color: rgba(20, 20, 20, 0.733);
 }
 
 .cardInfo{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem  
+    gap: 1.5rem  
 }
+
+.cardInfo div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem
+}
+
+
 .cardInfo img{    
     border-radius: 50%;
     height: 32px;
@@ -22,7 +34,7 @@
 .cardInfo p{
     color: rgb(163, 26, 26);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .text{
@@ -30,3 +42,17 @@
     overflow: hidden;
     line-height: 1.5rem;
 }
+
+.thumbnail{
+    margin: 0 auto;
+    width: 70%;
+    height: auto;
+    overflow: hidden;
+}
+
+.thumbnail img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+

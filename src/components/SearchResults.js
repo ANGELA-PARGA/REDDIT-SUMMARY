@@ -14,7 +14,7 @@ export function SearchResults() {
         return (
             <div>
                 <UilSpinnerAlt size={100} color='#D42B2B'/> 
-                <p>Cargando...</p>
+                <p>Loading the poooosts...</p>
             </div>
             );
     }
@@ -23,8 +23,8 @@ export function SearchResults() {
         return (
         <div>
             <UilSyncExclamation size={100} color='#D42B2B'/> 
-            <p>Hubo un error: {searchError}</p>
-            <p>Por favor intenté más tarde</p>
+            <p>There was an error: {searchError}</p>
+            <p>We are trying to fix it...Please try again later</p>
         </div>
         );
     }

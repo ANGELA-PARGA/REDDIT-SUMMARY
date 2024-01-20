@@ -1,19 +1,37 @@
 import { UilImageBlock } from '@iconscout/react-unicons'
 import styles from './PostCard.module.css'
+import { UilCommentChartLine } from '@iconscout/react-unicons'
+import { UilAnalysis } from '@iconscout/react-unicons'
 
 export function PostCard({data}){
+
+    function isValidImageURL(url) {
+        const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+        const lowercasedURL = url.toLowerCase();
+        return imageExtensions.some(ext => lowercasedURL.endsWith(ext));
+    }
+
     return (
         <div className={styles.card}>
             <div className={styles.cardInfo}>
                 {!data.icon_img ? <UilImageBlock size={32} color='#D42B2B'/>: <img src={data.icon_img} alt="icon" />}
                 <p>r/{data.subreddit_name_prefixed}</p>
-                <p>Posted by: u/{data.author}</p>                
+                <p><span>Posted by:</span> u/{data.author}</p>                
             </div>
             <h2>{data.title}</h2>
+            {data.url && isValidImageURL(data.url) ? <div className={styles.thumbnail}>
+                <img src={data.url} alt='thumbnail'></img> 
+            </div> :<></>}
             <p className={styles.text}>{data.selftext}</p>
             <div className={styles.cardInfo}>
-                <p>Comments: {data.num_comments}</p>
-                <p>Votes: {data.score}</p>                
+                <div>
+                    <UilCommentChartLine size={20} color='#D42B2B'/>
+                    <p><span>{data.num_comments}</span> comments</p>
+                </div>
+                <div>
+                    <UilAnalysis size={20} color='#D42B2B'/>
+                    <p><span>{data.score}</span> votes</p> 
+                </div>               
             </div>
         </div>
     )
