@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchSearchData } from './searchSlice';
-import { fetchSubredditsbySearch } from '../sidebar/sidebarSlice'
+import { useNavigate, createSearchParams } from 'react-router-dom';
+import { fetchSearchData, fetchSubredditsbySearch } from './searchSlice';
 import ICON from '../../assets/ICON.png'
-import styles from './Search.module.css'
+import styles from './SearchBar.module.css'
 
 export function SearchBar() {
   const [search, setSearch] = useState('');
   const dispatch = useDispatch(); 
+  const navigate = useNavigate()
   
   function handleSearchChange(e){
     setSearch(e.target.value);
@@ -16,7 +17,17 @@ export function SearchBar() {
   function handlerOnSubmit(e){
     e.preventDefault();
     dispatch(fetchSearchData(search));
-    dispatch(fetchSubredditsbySearch(search));                    
+    dispatch(fetchSubredditsbySearch(search));
+    console.log(search)
+    const searchQueryParams = {
+      q: search
+    };
+    const searchQueryString = createSearchParams(searchQueryParams);
+    console.log('Search Query:', searchQueryString);
+    navigate({
+      pathname: 'search',
+      search: `?${searchQueryString}`
+    });                    
   }
   
 

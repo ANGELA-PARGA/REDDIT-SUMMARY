@@ -5,12 +5,13 @@ import { RouterProvider,
         createRoutesFromElements, 
         Route } 
 from 'react-router-dom';
-import { Root } from './Root'
-import { Homepage } from '../components/homepage/Homepage';
+import { Root } from './rootLayout/Root'
+import { Homepage } from './homepageLayout/Homepage';
+import { SearchResults } from '../features/search/SearchResults';
 import { PostArticles } from '../features/postArticles/PostArticles'
 import { loadPostInfo } from '../features/postArticles/postArticlesSlice';
-import { loadBestPosts } from '../features/search/searchSlice'
-import { loadSubreddits } from '../features/sidebar/sidebarSlice';
+import { loadBestPosts, loadSubreddits } from '../features/loadingData/loadingResultsSlice'
+//import { fetchSearchData, fetchSubredditsbySearch } from '../features/search/searchSlice';
 
 function App() {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ function App() {
           return null
         }
       }/>
-      <Route path="search" element={<Homepage/>}/>
+      <Route path="search" element={<SearchResults/>}/>
       <Route path="post/r/:subreddit/comments/:id/:title/" element={<PostArticles/>} loader={
         async({params})=> {
           dispatch(loadPostInfo(`/r/${params.subreddit}/comments/${params.id}/${params.title}/`))

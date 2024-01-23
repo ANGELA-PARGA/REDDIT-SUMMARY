@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { SearchBar } from '../features/search/Search'
+import { SearchBar } from '../../features/search/SearchBar'
 
 export function Root() {
     return (

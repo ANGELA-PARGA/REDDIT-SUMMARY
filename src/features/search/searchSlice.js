@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { search } from '../../reddit_API/reddit_data';
-import { fetchBestPost } from '../../reddit_API/reddit_data';
+import { search, getSubredditsbySearch } from '../../reddit_API/reddit_data';
 
 const initialState = {
-  data: [],
-  status: '',
-  error: null, 
+  searchPosts: [],
+  searchSubreddits: [],
+  searchPostStatus: '',
+  searchSubredditsStatus: '',
+  searchPostsError: null,
+  searchSubredditsError: null  
 };
 
 export const fetchSearchData = createAsyncThunk(
@@ -22,16 +24,16 @@ export const fetchSearchData = createAsyncThunk(
   }
 );
 
-export const loadBestPosts = createAsyncThunk(
-  'load/loadBestPosts',
-  async (_, { rejectWithValue }) => {
-    console.log(`calling loadbestposts`)
+export const fetchSubredditsbySearch = createAsyncThunk(
+  'search/fetchSubredditsbySearch',
+  async (term, { rejectWithValue }) => {
+      console.log(`calling fetchSubreddit`)
       try {
-          const response = await fetchBestPost();
-          console.log(`feed posts: ${response}`)
-          return response;      
+      const response = await getSubredditsbySearch(term);
+      console.log(`subreddit results: ${response}`)
+      return response;      
       } catch (error) {
-          return rejectWithValue(error)     
+      return rejectWithValue(error.message)     
       }
   }
 );
@@ -43,32 +45,35 @@ export const searchSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchData.pending, (state) => {
-        state.status = 'pending';
+        state.searchPostStatus = 'pending';
       })
       .addCase(fetchSearchData.fulfilled, (state, action) => {
-        state.status = 'fulfilled';
-        state.data = action.payload;
+        state.searchPostStatus = 'fulfilled';
+        state.searchPosts = action.payload;
       })
       .addCase(fetchSearchData.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.error = action.payload;
+        state.searchPostStatus = 'rejected';
+        state.searchPostsError = action.payload;
       })
-      .addCase(loadBestPosts.pending, (state) => {
-        state.status = 'pending';
+      .addCase(fetchSubredditsbySearch.pending, (state) => {
+        state.searchSubredditsStatus = 'pending';
       })
-      .addCase(loadBestPosts.fulfilled, (state, action) => {
-          state.status = 'fulfilled';
-          state.data = action.payload;
+      .addCase(fetchSubredditsbySearch.fulfilled, (state, action) => {
+          state.searchSubredditsStatus = 'fulfilled';
+          state.searchSubreddits = action.payload;
       })
-      .addCase(loadBestPosts.rejected, (state, action) => {
-          state.status = 'rejected';
-          state.error = action.payload;
+      .addCase(fetchSubredditsbySearch.rejected, (state, action) => {
+          state.searchSubredditsStatus = 'rejected';
+          state.searchSubredditsError = action.payload;
       });
   },
 });
 
-export const selectSearchResults = (state) => state.search.data;
-export const selectSearchStatus = (state) => state.search.status;
-export const selectSearchError = (state) => state.search.error;
+export const selectSearchPostsResults = (state) => state.search.searchPosts;
+export const selectSearchPostsStatus = (state) => state.search.searchPostStatus;
+export const selectSearchPostsError = (state) => state.search.searchPostsError;
+export const selectSearchSubredditsResults = (state) => state.search.searchSubreddits;
+export const selectSearchSubredditsStatus = (state) => state.search.searchSubredditsStatus;
+export const selectSearchSubredditsError = (state) => state.search.searchSubredditsError;
 
 export default searchSlice.reducer;
