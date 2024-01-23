@@ -18,8 +18,10 @@ export const search = async (searchTerm) => {
         return postsWithLogo;        
     } catch (error) {
         console.log(`error searching data: ${error.message}`)
-        return { error: error.message };        
-    }   
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };         
+    } 
     
 }
 
@@ -41,7 +43,9 @@ export async function fetchBestPost(){
         return postsWithLogo;
     } catch (error) {
         console.log(`error fetching best posts: ${error.message}`)
-        return { error: error.message };         
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };         
     }    
 }
 
@@ -56,7 +60,9 @@ export const getSubredditsbySearch = async (searchTerm) => {
         return json.data.children.map((subreddit) => subreddit.data);        
     } catch (error) {
         console.log(`error searching subreddits: ${error.message}`)
-        return { error: error.message };         
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };        
     }     
 };
 
@@ -72,7 +78,9 @@ export const fetchSubreddits = async () => {
         
     } catch (error) {
         console.log(`error fetching subreddits: ${error.message}`)
-        return { error: error.message };         
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };        
     }
 };
 
@@ -87,7 +95,9 @@ export const getSubredditLogo = async (subredditName) => {
         return json.data.icon_img;        
     } catch (error) {
         console.log(`error getting subreddits logos: ${error.message}`)
-        return { error: error.message };         
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };       
     }    
 }
 
@@ -102,7 +112,9 @@ export const getPostInfo = async (permalink) => {
         return json;        
     } catch (error) {
         console.log(`error getting post info: ${error.message}`)
-        return { error: error.message };         
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };       
     }
 }
 

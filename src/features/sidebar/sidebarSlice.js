@@ -43,7 +43,7 @@ export const sidebarSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(fetchSubredditsbySearch.pending, (state) => {
-            state.status = 'loading';
+            state.status = 'pending';
         })
         .addCase(fetchSubredditsbySearch.fulfilled, (state, action) => {
             state.status = 'fulfilled';
@@ -54,7 +54,7 @@ export const sidebarSlice = createSlice({
             state.error = action.payload;
         })
         .addCase(loadSubreddits.pending, (state) => {
-            state.status = 'loading';
+            state.status = 'pending';
         })
         .addCase(loadSubreddits.fulfilled, (state, action) => {
             state.status = 'fulfilled';

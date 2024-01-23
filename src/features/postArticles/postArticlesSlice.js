@@ -30,7 +30,7 @@ export const postArticleSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(loadPostInfo.pending, (state) => {
-            state.status = 'loading';
+            state.status = 'pending';
         })
         .addCase(loadPostInfo.fulfilled, (state, action) => {
             state.status = 'fulfilled';

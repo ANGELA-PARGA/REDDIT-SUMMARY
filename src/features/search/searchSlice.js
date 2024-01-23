@@ -17,7 +17,7 @@ export const fetchSearchData = createAsyncThunk(
       console.log(`search results: ${response}`)
       return response;      
     } catch (error) {
-      return rejectWithValue(error.message)     
+      return rejectWithValue(error)     
     }
   }
 );
@@ -31,7 +31,7 @@ export const loadBestPosts = createAsyncThunk(
           console.log(`feed posts: ${response}`)
           return response;      
       } catch (error) {
-          return rejectWithValue(error.message)     
+          return rejectWithValue(error)     
       }
   }
 );
@@ -43,7 +43,7 @@ export const searchSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchData.pending, (state) => {
-        state.status = 'loading';
+        state.status = 'pending';
       })
       .addCase(fetchSearchData.fulfilled, (state, action) => {
         state.status = 'fulfilled';
@@ -54,7 +54,7 @@ export const searchSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(loadBestPosts.pending, (state) => {
-        state.status = 'loading';
+        state.status = 'pending';
       })
       .addCase(loadBestPosts.fulfilled, (state, action) => {
           state.status = 'fulfilled';
