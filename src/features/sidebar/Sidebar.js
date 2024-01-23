@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectSidebarResults, selectSidebarStatus, selectSidebarError } from '../features/sidebarSlice';
-import { SubredditCard } from '../components/SubredditCard';
+import { selectSidebarResults, selectSidebarStatus, selectSidebarError } from './sidebarSlice';
+import { SubredditCard } from '../../components/subreddit_cards/SubredditCard';
 import { UilSpinnerAlt, UilSyncExclamation} from '@iconscout/react-unicons'
 import styles from './Sidebar.module.css'
 
@@ -15,7 +15,7 @@ export function Sidebar() {
         return (
             <div>
                 < UilSpinnerAlt size={100} color='#D42B2B'/>
-                <p>Cargando...</p>
+                <p>Loading...</p>
             </div>
             );
     }

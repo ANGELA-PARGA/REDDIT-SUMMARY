@@ -3,6 +3,7 @@ import styles from './PostCard.module.css'
 import { UilCommentChartLine } from '@iconscout/react-unicons'
 import { UilAnalysis } from '@iconscout/react-unicons'
 
+
 export function PostCard({data}){
 
     function isValidImageURL(url) {
@@ -34,5 +35,6 @@ export function PostCard({data}){
                 </div>               
             </div>
         </div>
+        
     )
 }

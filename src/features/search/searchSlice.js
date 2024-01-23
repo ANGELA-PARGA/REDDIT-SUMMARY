@@ -5,7 +5,7 @@ import { fetchBestPost } from '../../reddit_API/reddit_data';
 const initialState = {
   data: [],
   status: '',
-  error: null
+  error: null, 
 };
 
 export const fetchSearchData = createAsyncThunk(
@@ -31,7 +31,7 @@ export const loadBestPosts = createAsyncThunk(
           console.log(`feed posts: ${response}`)
           return response;      
       } catch (error) {
-          return rejectWithValue(error)     
+          return rejectWithValue(error.message)     
       }
   }
 );

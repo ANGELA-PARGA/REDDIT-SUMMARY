@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getSubredditsbySearch, fetchSubreddits } from '../reddit_API/reddit_data'
+import { getSubredditsbySearch, fetchSubreddits } from '../../reddit_API/reddit_data'
 
 
 const initialState = {

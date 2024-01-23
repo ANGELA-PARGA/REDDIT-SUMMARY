@@ -1,14 +1,19 @@
 import { useSelector } from 'react-redux';
-import { selectSearchResults, selectSearchStatus, selectSearchError } from '../features/search/searchSlice';
-import {PostCard} from "./PostCard"
+import { Link } from 'react-router-dom';
+import { selectSearchResults, selectSearchStatus, selectSearchError } from '../../features/search/searchSlice';
+import {PostCard} from "../post_cards/PostCard"
 import { UilSpinnerAlt, UilSyncExclamation} from '@iconscout/react-unicons'
 import styles from './SearchResults.module.css'
+
+
 
 
 export function SearchResults() {
     const searchResults = useSelector(selectSearchResults);
     const searchStatus = useSelector(selectSearchStatus);
     const searchError = useSelector(selectSearchError);
+    
+    
 
     if (searchStatus === 'loading') {
         return (
@@ -33,7 +38,16 @@ export function SearchResults() {
         return (
         <div className={styles.gridResult}>
             {searchResults.map((result) => (
-            <PostCard key={result.id} data={result} />
+                <Link 
+                    className={styles.link} 
+                    key={result.id} 
+                    to={`post/r/${result.subreddit}/comments/${result.id}/${result.title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_')}/`}
+                    onClick={() => {
+                        console.log(`post/r/${result.subreddit}/comments/${result.id}/${result.title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_')}/`)
+                    }}
+                >
+                    <PostCard key={result.id} data={result} />
+                </Link>          
             ))}
         </div>
         );

@@ -1,0 +1,23 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 0.25rem;
+}
+.cardInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem  
+}
+.cardInfo p{
+    color: rgb(163, 26, 26);
+    font-weight: 700;
+    font-size: 0.7rem;
+}
+.text{
+    max-height: 250px;
+    overflow: hidden;
+    line-height: 1.5rem;
+}
