@@ -118,4 +118,36 @@ export const getPostInfo = async (permalink) => {
     }
 }
 
+export const getSubredditPosts = async (subredditName) => {
+    try {
+        const response = await fetch(`${API_ROOT}${subredditName}.json`);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+        }
+        const json = await response.json();
+        return json.data.children.map((subreddit) => subreddit.data);        
+    } catch (error) {
+        console.log(`error getting post info: ${error.message}`)
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };       
+    }
+}
 
+export const getSubredditInfo = async (subredditName) => {
+    try {
+        const response = await fetch(`${API_ROOT}${subredditName}about.json`);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+        }
+        const json = await response.json();
+        return json.data;        
+    } catch (error) {
+        console.log(`error getting subreddits logos: ${error.message}`)
+        const status =  error.response ? error.response.status : "Unknown";
+        const errorType = error.response ? error.response.statusText : "Unknown";
+        return { error: error.message, status, errorType };       
+    }
+}

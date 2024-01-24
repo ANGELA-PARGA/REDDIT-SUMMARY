@@ -5,7 +5,7 @@ import { UilAnalysis } from '@iconscout/react-unicons'
 import ReactMarkdown from 'react-markdown'
 
 
-export function PostCard({data}){
+export function PostCard({data, fullText}){
 
     function isValidImageURL(url) {
         const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
@@ -14,7 +14,7 @@ export function PostCard({data}){
     }
 
     return (
-        <div className={styles.card}>
+        <div className={`${styles.card} ${fullText ? styles.fullText : ''}`}>
             <div className={styles.cardInfo}>
                 {!data.icon_img ? <UilImageBlock size={32} color='#D42B2B'/>: <img src={data.icon_img} alt="icon" />}
                 <p>r/{data.subreddit_name_prefixed}</p>

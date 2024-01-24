@@ -15,7 +15,7 @@ export function PostArticles() {
     
     if (postInfoStatus === 'pending') {
         return (
-            <div>
+            <div className={styles.loading}>
                 <UilSpinnerAlt size={100} color='#D42B2B'/> 
                 <p>Loading the poooost...</p>
             </div>
@@ -32,7 +32,7 @@ export function PostArticles() {
 
         return (
         <div className={styles.postInfoCard}>
-            <PostCard data={postInfoResults[0].data.children[0].data}/>
+            <PostCard data={postInfoResults[0].data.children[0].data} fullText={true}/>
             <CommentsCard data={postInfoResults[1]} />
         </div>
         );

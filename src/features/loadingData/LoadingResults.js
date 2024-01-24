@@ -53,8 +53,14 @@ export function LoadingResults() {
                 ))}
             </div>
             <div className={styles.gridSidebar}>
-                {loadingSubreddits.map((subredditResult) => (
-                <SubredditCard key={subredditResult.id} data={subredditResult} />
+                {loadingSubreddits.map((subreddit) => (
+                    <Link 
+                        className={styles.link} 
+                        key={subreddit.id} 
+                        to={`r/${subreddit.display_name}/`}
+                    >
+                        <SubredditCard key={subreddit.id} data={subreddit} />
+                    </Link>
                 ))}
             </div>
         </div>

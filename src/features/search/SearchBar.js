@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate, createSearchParams } from 'react-router-dom';
-import { fetchSearchData, fetchSubredditsbySearch } from './searchSlice';
-import ICON from '../../assets/ICON.png'
+import { useNavigate, createSearchParams, Link } from 'react-router-dom';
 import styles from './SearchBar.module.css'
 
 export function SearchBar() {
   const [search, setSearch] = useState('');
-  const dispatch = useDispatch(); 
   const navigate = useNavigate()
   
   function handleSearchChange(e){
@@ -16,14 +12,10 @@ export function SearchBar() {
 
   function handlerOnSubmit(e){
     e.preventDefault();
-    dispatch(fetchSearchData(search));
-    dispatch(fetchSubredditsbySearch(search));
-    console.log(search)
     const searchQueryParams = {
       q: search
     };
     const searchQueryString = createSearchParams(searchQueryParams);
-    console.log('Search Query:', searchQueryString);
     navigate({
       pathname: 'search',
       search: `?${searchQueryString}`
@@ -34,10 +26,11 @@ export function SearchBar() {
 
   return (
     <div className={styles.headerDiv}>
-      <div className={styles.logo}>
-        <img src={ICON} alt="logo" />
-        <h1>ReddTrack</h1>
-      </div>
+      <Link to='/' className={styles.link}>
+        <div className={styles.logo}>
+          <h1>ReddTrack</h1>
+        </div>
+      </Link>
       <form 
           onSubmit={handlerOnSubmit}                
       >

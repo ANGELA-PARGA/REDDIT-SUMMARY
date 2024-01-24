@@ -53,8 +53,14 @@ export function SearchResults() {
             ))}
             </div>
             <div className={styles.gridSidebar}>
-                {searchSubredditsResults.map((subredditResult) => (
-                    <SubredditCard key={subredditResult.id} data={subredditResult} />
+                {searchSubredditsResults.map((subreddit) => (
+                    <Link 
+                    className={styles.link} 
+                    key={subreddit.id} 
+                    to={`/r/${subreddit.display_name}/`}
+                    >
+                        <SubredditCard key={subreddit.id} data={subreddit} />
+                    </Link>
                 ))}
             </div>
         </div>
