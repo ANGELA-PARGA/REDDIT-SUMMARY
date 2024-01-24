@@ -1,0 +1,9 @@
+.postInfoCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    width: 80%;
+    background-color: rgb(223, 223, 223);
+}

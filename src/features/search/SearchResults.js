@@ -24,9 +24,9 @@ export function SearchResults() {
     // Loading state
     if (searchPostStatus === 'pending' || searchSubredditsStatus === 'pending') {
         return (
-            <div>
+            <div className={styles.loading}>
                 <UilSpinnerAlt size={100} color='#D42B2B'/> 
-                <p>Loading the poooosts...</p>
+                <h3>Loading the poooosts...</h3>
             </div>
         );
     }

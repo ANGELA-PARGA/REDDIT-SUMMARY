@@ -31,7 +31,7 @@ export function PostArticles() {
     if (postInfoStatus === 'fulfilled') {
 
         return (
-        <div className={styles.gridResult}>
+        <div className={styles.postInfoCard}>
             <PostCard data={postInfoResults[0].data.children[0].data}/>
             <CommentsCard data={postInfoResults[1]} />
         </div>

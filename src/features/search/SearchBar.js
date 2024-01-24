@@ -27,7 +27,8 @@ export function SearchBar() {
     navigate({
       pathname: 'search',
       search: `?${searchQueryString}`
-    });                    
+    }); 
+    setSearch("")                   
   }
   
 

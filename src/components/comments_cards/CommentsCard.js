@@ -1,6 +1,8 @@
-import { UilImageBlock } from '@iconscout/react-unicons'
 import styles from './CommentsCard.module.css'
-import { UilAnalysis } from '@iconscout/react-unicons'
+import { UilAnalysis, UilUserCircle } from '@iconscout/react-unicons'
+import moment from 'moment'
+
+import ReactMarkdown from 'react-markdown'
 
 export function CommentsCard({data}){
 
@@ -11,11 +13,11 @@ export function CommentsCard({data}){
         {comments.map((comment) => (
             <div className={styles.card} key={comment.data.id}>
             <div className={styles.cardInfo}>
-                <UilImageBlock size={32} color='#D42B2B' />
+                <UilUserCircle size={32} color='#D42B2B' />
                 <p>{comment.data.author}</p>
-                <p>{comment.data.created_utc}</p>
+                <p>{moment.unix(comment.data.created_utc).fromNow()}</p>
             </div>
-            <p className={styles.text}>{comment.data.body}</p>
+            <div className={styles.text}><ReactMarkdown>{comment.data.body}</ReactMarkdown></div>
             <div className={styles.cardInfo}>
                 <div>
                 <UilAnalysis size={20} color='#D42B2B' />
