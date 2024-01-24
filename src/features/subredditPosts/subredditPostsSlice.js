@@ -12,13 +12,11 @@ const initialState = {
 export const loadSubredditPosts = createAsyncThunk(
     'load/loadSubredditPosts',
     async (link, { rejectWithValue }) => {
-        console.log(`calling fetchPostInfo`)
         try {
-        const response = await getSubredditPosts(link);
-        console.log(`subreddit posts: ${response}`)
-        return response;      
+            const response = await getSubredditPosts(link);
+            return response;      
         } catch (error) {
-        return rejectWithValue(error.message)     
+            return rejectWithValue(error.message)      
         }
     }
 );
@@ -26,13 +24,11 @@ export const loadSubredditPosts = createAsyncThunk(
 export const fetchSubredditInfo = createAsyncThunk(
     'load/fetchSubredditInfo',
     async (link, { rejectWithValue }) => {
-        console.log(`calling subreddit about info`)
         try {
-        const response = await getSubredditInfo(link);
-        console.log(`subreddit about info: ${response}`)
-        return response;      
+            const response = await getSubredditInfo(link);
+            return response;      
         } catch (error) {
-        return rejectWithValue(error.message)     
+            return rejectWithValue(error.message)      
         }
     }
 );

@@ -12,15 +12,17 @@ export function SearchBar() {
 
   function handlerOnSubmit(e){
     e.preventDefault();
-    const searchQueryParams = {
-      q: search
-    };
-    const searchQueryString = createSearchParams(searchQueryParams);
-    navigate({
-      pathname: 'search',
-      search: `?${searchQueryString}`
-    }); 
-    setSearch("")                   
+    if (search){
+      const searchQueryParams = {
+        q: search
+      };
+      const searchQueryString = createSearchParams(searchQueryParams);
+      navigate({
+        pathname: 'search',
+        search: `?${searchQueryString}`
+      }); 
+      setSearch("")
+    }                   
   }
   
 

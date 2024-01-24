@@ -13,13 +13,11 @@ const initialState = {
 export const fetchSearchData = createAsyncThunk(
   'search/fetchSearchData',
   async (searchTerm, { rejectWithValue }) => {
-    console.log(`calling fetchSearchData`)
     try {
       const response = await search(searchTerm);
-      console.log(`search results: ${response}`)
       return response;      
     } catch (error) {
-      return rejectWithValue(error)     
+      return rejectWithValue(error.message)      
     }
   }
 );
@@ -27,13 +25,11 @@ export const fetchSearchData = createAsyncThunk(
 export const fetchSubredditsbySearch = createAsyncThunk(
   'search/fetchSubredditsbySearch',
   async (term, { rejectWithValue }) => {
-      console.log(`calling fetchSubreddit`)
       try {
       const response = await getSubredditsbySearch(term);
-      console.log(`subreddit results: ${response}`)
       return response;      
       } catch (error) {
-      return rejectWithValue(error.message)     
+        return rejectWithValue(error.message)      
       }
   }
 );

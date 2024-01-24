@@ -5,7 +5,7 @@ export const search = async (searchTerm) => {
         const response = await fetch(`${API_ROOT}/search.json?q=${searchTerm}`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         const posts = json.data.children.map((post) => post.data);
@@ -17,20 +17,17 @@ export const search = async (searchTerm) => {
         
         return postsWithLogo;        
     } catch (error) {
-        console.log(`error searching data: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };         
+        throw Error (error);      
     } 
     
 }
 
 export async function fetchBestPost(){
     try {
-        const response = await fetch(`${API_ROOT}/hot.json`);
+        const response = await fetch(`${API_ROOT}/ho.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         const posts = json.data.children.map((post) => post.data);
@@ -42,11 +39,8 @@ export async function fetchBestPost(){
 
         return postsWithLogo;
     } catch (error) {
-        console.log(`error fetching best posts: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };         
-    }    
+        throw Error (error);      
+    }  
 }
 
 export const getSubredditsbySearch = async (searchTerm) => {
@@ -54,15 +48,12 @@ export const getSubredditsbySearch = async (searchTerm) => {
         const response = await fetch(`${API_ROOT}/subreddits/search.json?q=${searchTerm}`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         return json.data.children.map((subreddit) => subreddit.data);        
     } catch (error) {
-        console.log(`error searching subreddits: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };        
+        throw Error (error);       
     }     
 };
 
@@ -71,16 +62,13 @@ export const fetchSubreddits = async () => {
         const response = await fetch(`${API_ROOT}/subreddits.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();        
         return json.data.children.map((subreddit) => subreddit.data);
         
     } catch (error) {
-        console.log(`error fetching subreddits: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };        
+        throw Error (error);     
     }
 };
 
@@ -89,15 +77,12 @@ export const getSubredditLogo = async (subredditName) => {
         const response = await fetch(`${API_ROOT}/${subredditName}/about.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         return json.data.icon_img;        
     } catch (error) {
-        console.log(`error getting subreddits logos: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };       
+        throw Error (error);    
     }    
 }
 
@@ -106,15 +91,12 @@ export const getPostInfo = async (permalink) => {
         const response = await fetch(`${API_ROOT}${permalink}.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         return json;        
     } catch (error) {
-        console.log(`error getting post info: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };       
+        throw Error (error);    
     }
 }
 
@@ -123,15 +105,12 @@ export const getSubredditPosts = async (subredditName) => {
         const response = await fetch(`${API_ROOT}${subredditName}.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         return json.data.children.map((subreddit) => subreddit.data);        
     } catch (error) {
-        console.log(`error getting post info: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };       
+        throw Error (error);
     }
 }
 
@@ -140,14 +119,11 @@ export const getSubredditInfo = async (subredditName) => {
         const response = await fetch(`${API_ROOT}${subredditName}about.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Error: ${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
         return json.data;        
     } catch (error) {
-        console.log(`error getting subreddits logos: ${error.message}`)
-        const status =  error.response ? error.response.status : "Unknown";
-        const errorType = error.response ? error.response.statusText : "Unknown";
-        return { error: error.message, status, errorType };       
+        throw Error (error);   
     }
 }

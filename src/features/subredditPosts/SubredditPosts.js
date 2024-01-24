@@ -19,7 +19,7 @@ export function SubredditPosts() {
     const subredditInfoResults = useSelector(selectSubredditInfoResults);
     
     // Loading state
-    if (subredditPostsStatus === 'pending') {
+    if (subredditPostsStatus === 'pending' || subredditInfoResults === 'pending') {
         return (
             <div className={styles.loading}>
                 <UilSpinnerAlt size={100} color='#D42B2B'/> 
@@ -29,7 +29,7 @@ export function SubredditPosts() {
     }
 
     // Error state
-    if (subredditPostsStatus === 'rejected') {
+    if (subredditPostsStatus === 'rejected' || subredditInfoResults === 'rejected') {
         return (
             <ErrorHandler errorData={subredditPostsError}/>        
         );

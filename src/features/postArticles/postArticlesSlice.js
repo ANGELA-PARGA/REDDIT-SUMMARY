@@ -11,13 +11,11 @@ const initialState = {
 export const loadPostInfo = createAsyncThunk(
     'load/loadPostInfo',
     async (link, { rejectWithValue }) => {
-        console.log(`calling fetchPostInfo`)
         try {
-        const response = await getPostInfo(link);
-        console.log(`post information: ${response}`)
-        return response;      
+            const response = await getPostInfo(link);
+            return response;      
         } catch (error) {
-        return rejectWithValue(error.message)     
+            return rejectWithValue(error.message)     
         }
     }
 );
@@ -35,7 +33,6 @@ export const postArticleSlice = createSlice({
         .addCase(loadPostInfo.fulfilled, (state, action) => {
             state.status = 'fulfilled';
             state.postData = action.payload;
-            console.log(state.postData)
         })
         .addCase(loadPostInfo.rejected, (state, action) => {
             state.status = 'rejected';

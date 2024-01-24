@@ -13,13 +13,11 @@ const initialState = {
 export const loadBestPosts = createAsyncThunk(
     'load/loadBestPosts',
     async (_, { rejectWithValue }) => {
-        console.log(`calling loadbestposts`)
         try {
             const response = await fetchBestPost();
-            console.log(`feed posts: ${response}`)
             return response;      
         } catch (error) {
-            return rejectWithValue(error)     
+            return rejectWithValue(error.message)     
         }
     }
 );
@@ -29,11 +27,10 @@ export const loadSubreddits = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         console.log(`calling loadSubreddit`)
         try {
-        const response = await fetchSubreddits();
-        console.log(`load subreddits: ${response}`)
-        return response;      
+            const response = await fetchSubreddits();
+            return response;      
         } catch (error) {
-        return rejectWithValue(error.message)     
+            return rejectWithValue(error.message)     
         }
     }
 );
@@ -65,6 +62,7 @@ export const loadingResultsSlice = createSlice({
         .addCase(loadBestPosts.rejected, (state, action) => {
             state.postsStatus = 'rejected';
             state.postsError = action.payload;
+            
         });
     },
 });
