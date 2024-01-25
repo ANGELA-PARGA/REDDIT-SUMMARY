@@ -17,6 +17,7 @@ export const loadBestPosts = createAsyncThunk(
             const response = await fetchBestPost();
             return response;      
         } catch (error) {
+            console.log(error)
             return rejectWithValue(error.message)     
         }
     }
@@ -25,7 +26,6 @@ export const loadBestPosts = createAsyncThunk(
 export const loadSubreddits = createAsyncThunk(
     'load/loadSubreddits',
     async (_, { rejectWithValue }) => {
-        console.log(`calling loadSubreddit`)
         try {
             const response = await fetchSubreddits();
             return response;      

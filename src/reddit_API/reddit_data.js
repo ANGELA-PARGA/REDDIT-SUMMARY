@@ -5,7 +5,7 @@ export const search = async (searchTerm) => {
         const response = await fetch(`${API_ROOT}/search.json?q=${searchTerm}`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status}: ${errorData.code}- ${errorData.message}`);
         }
         const json = await response.json();
         const posts = json.data.children.map((post) => post.data);
@@ -24,10 +24,10 @@ export const search = async (searchTerm) => {
 
 export async function fetchBestPost(){
     try {
-        const response = await fetch(`${API_ROOT}/ho.json`);
+        const response = await fetch(`${API_ROOT}/hot.json`);
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`${response.status} - ${errorData.message}`);
+            throw new Error(`${response.status} ${response.statusText} - ${errorData.message}`);
         }
         const json = await response.json();
         const posts = json.data.children.map((post) => post.data);
