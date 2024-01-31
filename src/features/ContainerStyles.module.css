@@ -11,19 +11,32 @@ h2{
 
 .mainInfo{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 1fr;    
+    padding: 2rem 2rem;
     gap: 2rem;
-    padding: 4rem 2rem;
-    background-color: rgb(223, 223, 223);
+    background-color: black;
+}
+
+.loadInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 0.85rem;
+    background-color: rgba(128, 128, 128, 0.637);
 }
 
 .gridSidebar{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    background-color: rgba(19, 18, 18, 0.281);
     padding: 0.5rem;
     border-radius: 0.25rem;
+    padding: 2rem;
+    border-radius: 0.85rem;
+    background-color: rgba(128, 128, 128, 0.637);
 }
 
 .gridResult{
@@ -34,6 +47,26 @@ h2{
 
 .link{
     text-decoration: none;
+    color: rgb(163, 26, 26); 
+}
+
+.linkButtons{
+    text-decoration: none;
+    display: block;
+    padding: 1.25rem 2rem;
+    background-color: rgba(255, 255, 255, 0.541);
+    border-radius: 5rem;
+    color: rgb(37, 37, 37);
+    font-weight: 500;
+    
+}
+
+.buttonsContainer{
+    display: flex;
+    width: 90%;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .loading{

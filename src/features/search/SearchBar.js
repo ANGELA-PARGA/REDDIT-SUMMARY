@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate, createSearchParams, Link } from 'react-router-dom';
+import { resetCount } from '../postFeeds/postsFeedsSlice';
 import styles from './SearchBar.module.css'
 
 export function SearchBar() {
   const [search, setSearch] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   function handleSearchChange(e){
     setSearch(e.target.value);
@@ -28,7 +31,7 @@ export function SearchBar() {
 
   return (
     <div className={styles.headerDiv}>
-      <Link to='/' className={styles.link}>
+      <Link onClick={() => dispatch(resetCount())} to='/' className={styles.link}>
         <div className={styles.logo}>
           <h1>ReddTrack</h1>
         </div>

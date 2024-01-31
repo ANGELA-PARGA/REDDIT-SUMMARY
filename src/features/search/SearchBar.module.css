@@ -4,9 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: rgb(168,53,53);
-    background: linear-gradient(260deg, rgba(168,53,53,1) 8%, rgba(200,4,4,1) 54%, rgba(232,231,231,1) 94%);
+    background: black;
 }
+
 
 h1{
     color: rgb(163, 26, 26);
