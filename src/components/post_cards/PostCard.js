@@ -4,6 +4,7 @@ import { UilCommentChartLine } from '@iconscout/react-unicons'
 import { UilAnalysis } from '@iconscout/react-unicons'
 import ReactMarkdown from 'react-markdown'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 export function PostCard({data, fullText}){
@@ -23,9 +24,11 @@ export function PostCard({data, fullText}){
     return (
         <div className={`${styles.card} ${fullText ? styles.fullText : ''}`}>
             <div className={styles.cardInfo}>
-                {!data.icon_img ? <UilImageBlock size={32} color='#D42B2B'/>: <img src={data.icon_img} alt="icon" />}
-                <p>r/{data.subreddit_name_prefixed}</p>
-                <p><span>Posted by:</span> u/{data.author}</p>                
+                {!data.icon_img ? 
+                <UilImageBlock size={32} color='#D42B2B'/>: <img src={data.icon_img} alt="icon" />
+                }
+                <Link to={`/r/${data.subreddit}/`} className={styles.subredditLink}>r/{data.subreddit_name_prefixed}</Link>
+                <p className={styles.author}><span>Posted by:</span> u/{data.author}</p>                
             </div>
             <h2>{data.title}</h2>
             { data.url && isValidImageURL(data.url) ? 
@@ -50,7 +53,7 @@ export function PostCard({data, fullText}){
                 </div> 
             }
             <div className={styles.text}>
-                <ReactMarkdown>{data.selftext}</ReactMarkdown>
+                <ReactMarkdown className={styles.markdown}>{data.selftext}</ReactMarkdown>
             </div>
             <div className={styles.cardInfo}>
                 <div>

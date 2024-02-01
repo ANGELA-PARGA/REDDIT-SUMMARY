@@ -1,17 +1,25 @@
 .errorDiv{
-    margin: 20px auto;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0.85rem;
+    background-color: rgba(128, 128, 128, 0.637);
+    text-align: center;    
 }
-h3{
-    color: rgb(163, 26, 26);    
+.errorDiv h3{
+    color: rgb(163, 26, 26);
+    font-size: 2rem;
+    font-weight: 500;     
 }
 p {
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(68, 68, 68)
 }
 span{
     font-weight: bolder;
+    font-size: 1rem;
 }

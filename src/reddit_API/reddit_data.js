@@ -1,21 +1,33 @@
 export const API_ROOT = 'https://www.reddit.com';
 
-export const search = async (searchTerm) => {
+export const search = async ({ searchTerm = '', after = '', before = '', count = '0' }) => {
     try {
-        const response = await fetch(`${API_ROOT}/search.json?q=${searchTerm}`);
+        const queryParams = new URLSearchParams({
+            q: searchTerm,
+            after,
+            before,
+            count,
+            limit: '25',
+        });
+        const response = await fetch(`${API_ROOT}/search.json?${queryParams}`);
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`${response.status}: ${errorData.code}- ${errorData.message}`);
         }
         const json = await response.json();
-        const posts = json.data.children.map((post) => post.data);
 
-        const postsWithLogo = await Promise.all(posts.map(async (post) => {
-            const logoUrl = await getSubredditLogo(post.subreddit_name_prefixed);
-            return { ...post, icon_img: logoUrl };
-        }));
-        
-        return postsWithLogo;        
+        const postsWithLogo = await Promise.all(json.data.children.map(async (post) => {
+            const logoUrl = await getSubredditLogo(post.data.subreddit_name_prefixed);
+            return { ...post, data: {...post.data, icon_img: logoUrl} };
+        }));  
+        const completeObject = {
+            ...json, 
+            data:{
+                ...json.data,
+                children: postsWithLogo
+            }
+        }
+        return completeObject        
     } catch (error) {
         throw Error (error);      
     } 
@@ -30,7 +42,7 @@ export const getSubredditsbySearch = async (searchTerm) => {
             throw new Error(`${response.status} - ${errorData.message}`);
         }
         const json = await response.json();
-        return json.data.children.map((subreddit) => subreddit.data);        
+        return json.data.children;        
     } catch (error) {
         throw Error (error);       
     }     

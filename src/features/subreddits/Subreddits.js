@@ -19,7 +19,9 @@ export function Subreddits(){
     if (loadingSubredditsStatus === 'pending') {
         return (
             <div className={styles.loading}>
-                <UilSpinnerAlt size={100} color='#D42B2B'/> 
+                <div>
+                    <UilSpinnerAlt size={100} color='#D42B2B'/>
+                </div> 
                 <h3>Loading subreddits...</h3>
             </div>
         );

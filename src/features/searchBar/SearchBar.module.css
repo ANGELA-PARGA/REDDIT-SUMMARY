@@ -3,14 +3,16 @@
     top:0;
     display: flex;
     align-items: center;
+    padding-top: 0.5rem;
     justify-content: flex-start;
     background: black;
+    z-index: 100;
 }
 
 
 h1{
     color: rgb(163, 26, 26);
-    font-size: 1.3rem;
+    font-size: 2rem;
     letter-spacing: 0.1rem;
 }
 
@@ -41,4 +43,14 @@ input:focus {
 
 .link{
     text-decoration: none;
+}
+
+@media screen and (max-width: 550px) {
+    h1{
+        font-size: 1rem;
+    }
+    input{
+        width: 180px;
+    }
+    
 }

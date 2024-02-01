@@ -31,14 +31,15 @@ export const loadingPostsSlice = createSlice({
     reducers: {
         increment(state){
             state.count = (parseInt(state.count, 10) + 25).toString();
-            console.log('count increasing:', state.count)
+            console.log('count increasing en postfeeds:', state.count)
         },
         decrement(state){
             state.count = Math.max(0, parseInt(state.count, 10) - 25).toString();
-            console.log('count decreasing:', state.count)
+            console.log('count decreasing en postfeeds:', state.count)
         },
         resetCount(state){
             state.count = 0
+            console.log('count resetting en postfeeds:', state.count)
         }
     },
     extraReducers: (builder) => {
@@ -49,12 +50,12 @@ export const loadingPostsSlice = createSlice({
         .addCase(loadBestPosts.fulfilled, (state, action) => {
             state.postsStatus = 'fulfilled';
             state.postsData = action.payload.data.children;
-            console.log('datos del estado', state.postsData) 
+            console.log('datos del estado en postfeeds', state.postsData) 
             state.nextData = action.payload.data.after;
-            console.log('datos de after', state.nextData) 
+            console.log('datos de after en postfeeds', state.nextData) 
             state.prevData = action.payload.data.before;
-            console.log('datos de before', state.prevData)
-            console.log('datos del count', state.count) 
+            console.log('datos de before en postfeeds', state.prevData)
+            console.log('datos del count en postfeeds', state.count) 
 
         })
         .addCase(loadBestPosts.rejected, (state, action) => {

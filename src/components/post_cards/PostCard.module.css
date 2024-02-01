@@ -9,6 +9,7 @@
 
 .card span{
     color: rgba(20, 20, 20, 0.733);
+    font-size: 0.7rem;
 }
 
 .cardInfo{
@@ -26,7 +27,6 @@
     
 }
 
-
 .cardInfo img{    
     border-radius: 50%;
     height: 32px;
@@ -34,6 +34,13 @@
 }
 
 .cardInfo p{
+    color: rgb(163, 26, 26);
+    font-weight: 700;
+    font-size: 0.7rem;
+}
+
+.subredditLink{
+    text-decoration: none;
     color: rgb(163, 26, 26);
     font-weight: 700;
     font-size: 0.7rem;
@@ -75,5 +82,14 @@
 .videoPlayer{
     width: 75%;
     height: auto;
+}
+
+@media screen and (max-width: 420px) {
+    .cardInfo{
+        gap: 0.5rem;
+    }
+    .author{
+        display: none;
+    } 
 }
 

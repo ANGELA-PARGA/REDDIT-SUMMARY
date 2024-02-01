@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchSubreddits } from '../../reddit_API/reddit_data';
+import { fetchSubreddits, getSubredditsbySearch } from '../../reddit_API/reddit_data';
 
 const initialState = {
     subredditsData: [],
@@ -21,6 +21,18 @@ export const loadSubreddits = createAsyncThunk(
     }
 );
 
+export const fetchSubredditsbySearch = createAsyncThunk(
+    'search/fetchSubredditsbySearch',
+    async (term, { rejectWithValue }) => {
+        try {
+            const response = await getSubredditsbySearch(term);
+            return response;      
+        } catch (error) {
+            return rejectWithValue(error.message)      
+        }
+    }
+)
+
 export const loadingSubredditsSlice = createSlice({
     name: 'loadingSubreddits',
     initialState,
@@ -35,6 +47,18 @@ export const loadingSubredditsSlice = createSlice({
             state.subredditsData = action.payload;
         })
         .addCase(loadSubreddits.rejected, (state, action) => {
+            state.subredditsStatus = 'rejected';
+            state.subredditsError = action.payload;
+        })
+        .addCase(fetchSubredditsbySearch
+            .pending, (state) => {
+            state.subredditsStatus = 'pending';
+        })
+        .addCase(fetchSubredditsbySearch.fulfilled, (state, action) => {
+            state.subredditsStatus = 'fulfilled';
+            state.subredditsData = action.payload;
+        })
+        .addCase(fetchSubredditsbySearch.rejected, (state, action) => {
             state.subredditsStatus = 'rejected';
             state.subredditsError = action.payload;
         })

@@ -1,13 +1,8 @@
-import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { RouterProvider, 
-        createBrowserRouter, 
-        createRoutesFromElements, 
-        Route } 
-from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import { Root } from './rootLayout/Root'
 import { LoadingResults } from '../features/postFeeds/PostsFeeds';
-import { SearchResults } from '../features/search/SearchResults';
+import { SearchResults } from '../features/searchResults/SearchResults';
 import { PostArticles } from '../features/postArticles/PostArticles';
 import { ErrorHandler } from '../components/error_handler/ErrorHandler';
 import { SubredditPosts } from '../features/subredditPosts/SubredditPosts';
@@ -15,31 +10,22 @@ import { loadPostInfo } from '../features/postArticles/postArticlesSlice';
 import { loadBestPosts } from '../features/postFeeds/postsFeedsSlice';
 import { loadSubreddits } from '../features/subreddits/subredditsSlice';
 import { loadSubredditPosts, fetchSubredditInfo} from '../features/subredditPosts/subredditPostsSlice';
-import { fetchSearchData, fetchSubredditsbySearch } from '../features/search/searchSlice';
+import { fetchSearchData } from '../features/searchResults/searchResultsSlice';
+import { fetchSubredditsbySearch } from '../features/subreddits/subredditsSlice';
 
 function App() {
   const dispatch = useDispatch()
-  const [loadSubredditsCalled, setLoadSubredditsCalled] = useState(false);
 
   const router = createBrowserRouter((createRoutesFromElements(
-    <Route path='/' element={<Root/>} loader={
-      async()=>{
-        if (!loadSubredditsCalled) {
-          console.log('mounting ROOT and calling loadSubreddits')
-          dispatch(loadSubreddits());
-          setLoadSubredditsCalled(true); 
-        }
-        return null
-      }}
-    >
+    <Route path='/' element={<Root/>}>
       <Route index element={<LoadingResults/>} loader={ 
         async({request})=> {
           const url = new URL(request.url);
           const after = url.searchParams.get("after");
           const before = url.searchParams.get("before");
           const count = url.searchParams.get("count");
-          console.log('mounting LOADINGRESULTS and calling loadBestPosts')
           dispatch(loadBestPosts({ after, before, count}))
+          dispatch(loadSubreddits())        
           return null
         }} 
         errorElement={<ErrorHandler/>}
@@ -48,8 +34,11 @@ function App() {
         async({request})=> {
           const url = new URL(request.url);
           const searchTerm = url.searchParams.get("q");
-          dispatch(fetchSearchData(searchTerm));
-          dispatch(fetchSubredditsbySearch(searchTerm));          
+          const after = url.searchParams.get("after");
+          const before = url.searchParams.get("before");
+          const count = url.searchParams.get("count");  
+          dispatch(fetchSearchData({ searchTerm, after, before, count }));
+          dispatch(fetchSubredditsbySearch(searchTerm))        
           return null
         }} 
         errorElement={<ErrorHandler/>}
