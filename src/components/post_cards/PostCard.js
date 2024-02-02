@@ -21,6 +21,7 @@ export function PostCard({data, fullText}){
         setLoad(false)
     }
 
+
     return (
         <div className={`${styles.card} ${fullText ? styles.fullText : ''}`}>
             <div className={styles.cardInfo}>
@@ -54,14 +55,16 @@ export function PostCard({data, fullText}){
                     <video 
                         src={media}                       
                         controls
-                        style={{height: '400px', width: '400px'}} 
-                        className={styles.videoPlayer}>
+                        className={styles.video} >
                     </video> :
                     <></>
                     }
                     <a href={data.url_overridden_by_dest} 
                         target="_blank" 
-                        rel="noopener noreferrer">{data.url_overridden_by_dest}
+                        rel="noopener noreferrer"
+                        
+                    >
+                        {data.url_overridden_by_dest}
                     </a>
                 </div> 
             }
