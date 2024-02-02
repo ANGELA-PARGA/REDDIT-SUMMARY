@@ -38,6 +38,7 @@ export function PostCard({data, fullText}){
                         sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px"
                         src={data.url} 
                         alt='embded'
+                        style={{maxHeight: '600px'}}
                     /> 
                 </div> : 
                 <div className={styles.embdedInfo}>
@@ -45,15 +46,15 @@ export function PostCard({data, fullText}){
                     <img 
                         src={data.thumbnail}
                         loading="lazy" 
-                        sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px" 
                         alt="thumbnail" 
                         onError={handleOnError}  
-                        style={{ display: load ? 'block' : 'none' }}
+                        style={{ display: load ? 'block' : 'none' , height: '140px', width: '140px'}}
                     />}
                     {!load && media ?  
                     <video 
                         src={media}                       
-                        controls 
+                        controls
+                        style={{height: '400px', width: '400px'}} 
                         className={styles.videoPlayer}>
                     </video> :
                     <></>

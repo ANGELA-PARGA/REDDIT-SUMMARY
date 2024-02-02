@@ -16,8 +16,8 @@ a{
 .mainInfo{
     display: grid;
     grid-template-columns: 2fr 1fr;    
-    padding: 2rem;
-    gap: 2rem;
+    padding: 1rem;
+    gap: 1rem;
     background-color: black;
 }
 
@@ -118,7 +118,7 @@ a{
 }
 
 
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 920px) {
     .gridSidebar {
         display: none;
     }
@@ -131,13 +131,4 @@ a{
     .gridResult {
         width: 100%;
     }
-    .mainInfo{
-        padding: 1rem;
-    }  
-    .loadInfo{
-        padding: 1rem;
-    } 
-    a{
-        font-size: 0.75rem;
-    } 
 }

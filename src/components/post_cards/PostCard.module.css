@@ -69,11 +69,6 @@
     max-height: 600px;
 }
 
-.embdedInfo img{
-    height: 140px;
-    width: 160px;
-}
-
 .embdedInfo{
     display: flex;
     flex-direction: column;
@@ -82,10 +77,6 @@
     gap: 1rem;
     width: 100%;
     overflow: hidden;
-}
-.videoPlayer{
-    height: 400px;
-    width: 400px;
 }
 
 @media screen and (max-width: 420px) {
