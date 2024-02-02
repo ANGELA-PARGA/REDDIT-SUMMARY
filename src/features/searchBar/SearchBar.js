@@ -40,7 +40,7 @@ export function SearchBar() {
         dispatch(resetCountInSearch())}} to='/' className={styles.link}
       >
         <div className={styles.logo}>
-          <h1>ReddTrack</h1>
+          <h1>RedTrack</h1>
         </div>
       </Link>
       <form 

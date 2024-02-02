@@ -33,17 +33,29 @@ export function PostCard({data, fullText}){
             <h2>{data.title}</h2>
             { data.url && isValidImageURL(data.url) ? 
                 <div className={styles.thumbnail}>
-                    <img src={data.url} alt='embded'></img> 
+                    <img 
+                        loading="lazy"  
+                        sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px"
+                        src={data.url} 
+                        alt='embded'
+                    /> 
                 </div> : 
                 <div className={styles.embdedInfo}>
                     {!data.thumbnail ? <></> : 
-                    <img src={data.thumbnail} 
+                    <img 
+                        src={data.thumbnail}
+                        loading="lazy" 
+                        sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px" 
                         alt="thumbnail" 
                         onError={handleOnError}  
                         style={{ display: load ? 'block' : 'none' }}
                     />}
                     {!load && media ?  
-                    <video src={media} controls className={styles.videoPlayer}></video> :
+                    <video 
+                        src={media}                       
+                        controls 
+                        className={styles.videoPlayer}>
+                    </video> :
                     <></>
                     }
                     <a href={data.url_overridden_by_dest} 
