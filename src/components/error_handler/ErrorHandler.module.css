@@ -17,9 +17,20 @@
 p {
     font-size: 1rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(68, 68, 68)
+    color: rgb(34, 34, 34)
 }
 span{
     font-weight: bolder;
     font-size: 1rem;
+}
+.retryh1{
+    color: rgb(245, 12, 12);
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 0, 0, 0.192);
+    width: 250px;
+    margin: 0 auto;
 }

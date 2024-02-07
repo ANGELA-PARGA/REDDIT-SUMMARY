@@ -8,7 +8,7 @@
 }
 
 .card span{
-    color: rgba(20, 20, 20, 0.89);
+    color: rgba(20, 20, 20, 0.959);
     font-size: 0.7rem;
 }
 
@@ -16,7 +16,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1.5rem  
+    gap: 1.5rem;
+    background-color: rgba(168, 168, 168, 0.418); 
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .cardInfo div{
@@ -34,7 +37,7 @@
 }
 
 .cardInfo p{
-    color: rgb(230, 12, 12);
+    color: rgb(214, 6, 6);
     font-weight: 700;
     font-size: 0.7rem;
 }
@@ -79,8 +82,10 @@
     align-items: center;
     margin: 0 auto;
     gap: 1rem;
-    width: 100%;
-    overflow: hidden;
+}
+
+.alinks a{
+    overflow-wrap: anywhere;
 }
 
 .video{

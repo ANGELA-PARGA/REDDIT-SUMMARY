@@ -17,6 +17,8 @@ export function SubredditPosts() {
     const subredditPostsStatus = useSelector(selectSubredditPostsStatus);
     const subredditPostsError = useSelector(selectSubredditPostsError);
     const subredditInfoResults = useSelector(selectSubredditInfoResults);
+
+    
     
     // Loading state
     if (subredditPostsStatus === 'pending') {

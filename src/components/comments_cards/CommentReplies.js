@@ -17,7 +17,7 @@ export function CommentReplies({replies}){
                     <div className={styles.cardInfo}>
                         <div className={styles.footerInfo}>
                             <div><UilAnalysis size={20} color='#D42B2B' /></div>
-                            <p><span>{reply.data.score}</span> votes</p>
+                            <p className={styles.commentVotes}><span>{reply.data.score}</span> votes</p>
                         </div>
                     </div>
                 </div>            

@@ -4,11 +4,8 @@ import { search } from '../../reddit_API/reddit_data';
 const initialState = {
   searchTerm: '',
   searchPosts: [],
-  //searchSubreddits: [],
   searchPostStatus: '',
-  //searchSubredditsStatus: '',
   searchPostsError: null,
-  //searchSubredditsError: null
   nextData: '',
   prevData: '',
   countInSearch: '0'
@@ -16,27 +13,41 @@ const initialState = {
 
 export const fetchSearchData = createAsyncThunk(
   'search/fetchSearchData',
-  async (searchTerm, { rejectWithValue }) => {
+  async ({searchTerm, after, before, count}, { rejectWithValue }) => {
+    console.log('FETCH SEARCH: calling fetchSearchData in thunk')
     try {
-      const response = await search(searchTerm);
+      const cacheKey = `cache_searchPosts_${searchTerm}_${after}_${before}`;
+      const cacheTimestampKey = `cache_searchPosts_${searchTerm}_${after}_${before}_timestamp`;
+      const cachedData = sessionStorage.getItem(cacheKey);
+      const cachedTimestamp = sessionStorage.getItem(cacheTimestampKey);
+
+      if (cachedTimestamp) {
+        const currentTime = new Date().getTime();
+        const fiveMinutesInMillis = 5 * 60 * 1000;
+        if (currentTime - parseInt(cachedTimestamp, 10) >= fiveMinutesInMillis) {
+            sessionStorage.removeItem(cacheKey);
+            sessionStorage.removeItem(cacheTimestampKey);
+        }
+    }
+
+    if (cachedData) {
+        const cachedDataParsed = JSON.parse(cachedData);
+        console.log('returning posts by search data in caché', cachedDataParsed);
+        return cachedDataParsed;
+    }
+      const response = await search({searchTerm, after, before, count});
+      sessionStorage.setItem(cacheKey, JSON.stringify(response));
+      sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
+      console.log('FETCH SEARCH: datos del fetching', response)
       return response;      
     } catch (error) {
+      if (error.name === 'QuotaExceededError') {
+        sessionStorage.clear();
+      }
       return rejectWithValue(error.message)      
     }
   }
 );
-
-/*export const fetchSubredditsbySearch = createAsyncThunk(
-  'search/fetchSubredditsbySearch',
-  async (term, { rejectWithValue }) => {
-      try {
-      const response = await getSubredditsbySearch(term);
-      return response;      
-      } catch (error) {
-        return rejectWithValue(error.message)      
-      }
-  }
-);*/
 
 export const searchSlice = createSlice({
   name: 'search',
@@ -77,17 +88,6 @@ export const searchSlice = createSlice({
         state.searchPostStatus = 'rejected';
         state.searchPostsError = action.payload;
       })
-      /*.addCase(fetchSubredditsbySearch.pending, (state) => {
-        state.searchSubredditsStatus = 'pending';
-      })
-      .addCase(fetchSubredditsbySearch.fulfilled, (state, action) => {
-          state.searchSubredditsStatus = 'fulfilled';
-          state.searchSubreddits = action.payload;
-      })
-      .addCase(fetchSubredditsbySearch.rejected, (state, action) => {
-          state.searchSubredditsStatus = 'rejected';
-          state.searchSubredditsError = action.payload;
-      });*/
   },
 });
 
@@ -98,9 +98,6 @@ export const selectAfter = (state) => state.search.nextData;
 export const selectBefore = (state) => state.search.prevData;
 export const selectCountInSearch = (state) => state.search.countInSearch;
 export const selectSearchTerm = (state) => state.search.searchTerm;
-/*export const selectSearchSubredditsResults = (state) => state.search.searchSubreddits;
-export const selectSearchSubredditsStatus = (state) => state.search.searchSubredditsStatus;
-export const selectSearchSubredditsError = (state) => state.search.searchSubredditsError;*/
 export const { increment, decrement, resetCountInSearch, setSearchTerm } = searchSlice.actions;
 
 export default searchSlice.reducer;

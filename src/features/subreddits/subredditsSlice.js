@@ -12,10 +12,34 @@ export const loadSubreddits = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         console.log('LOADSUBREDDITS: calling loadSubreddits in thunk')
         try {
+            const cacheKey = 'cache_subreddits';
+            const cacheTimestampKey = 'cache_subreddits_timestamp';
+            const cachedData = sessionStorage.getItem(cacheKey);
+            const cachedTimestamp = sessionStorage.getItem(cacheTimestampKey);
+
+            if (cachedTimestamp) {
+                const currentTime = new Date().getTime();
+                const fifteenMinutesInMillis = 15 * 60 * 1000;
+                if (currentTime - parseInt(cachedTimestamp, 10) >= fifteenMinutesInMillis) {
+                    sessionStorage.removeItem(cacheKey);
+                    sessionStorage.removeItem(cacheTimestampKey);
+                }
+            }
+        
+            if (cachedData) {
+                const cachedDataParsed = JSON.parse(cachedData);
+                console.log('returning subreddits data in caché', cachedDataParsed);
+                return cachedDataParsed;
+            }
             const response = await fetchSubreddits();
-            console.log('LOADSUBREDDITS: datos del fetching',response)
+            sessionStorage.setItem(cacheKey, JSON.stringify(response));
+            sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
+            console.log('LOADSUBREDDITS: datos del fetching', response)
             return response;      
         } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+                sessionStorage.clear();
+            }
             return rejectWithValue(error.message)     
         }
     }
@@ -24,10 +48,36 @@ export const loadSubreddits = createAsyncThunk(
 export const fetchSubredditsbySearch = createAsyncThunk(
     'search/fetchSubredditsbySearch',
     async (term, { rejectWithValue }) => {
+        console.log('FETCH SUBREDDITS: calling fetchSubredditsbySearch in thunk')
         try {
+            const cacheKey = `cache_subreddits_${term}`;
+            const cacheTimestampKey = `cache_subreddits_${term}_timestamp`;
+            const cachedData = sessionStorage.getItem(cacheKey);
+            const cachedTimestamp = sessionStorage.getItem(cacheTimestampKey);
+
+            if (cachedTimestamp) {
+                const currentTime = new Date().getTime();
+                const fiveMinutesInMillis = 5 * 60 * 1000;
+                if (currentTime - parseInt(cachedTimestamp, 10) >= fiveMinutesInMillis) {
+                    sessionStorage.removeItem(cacheKey);
+                    sessionStorage.removeItem(cacheTimestampKey);
+                }
+            }
+        
+            if (cachedData) {
+                const cachedDataParsed = JSON.parse(cachedData);
+                console.log('returning subreddits by search data in caché', cachedDataParsed);
+                return cachedDataParsed;
+            }
             const response = await getSubredditsbySearch(term);
+            sessionStorage.setItem(cacheKey, JSON.stringify(response));
+            sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
+            console.log('FETCH SUBREDDITS: datos del fetching:', response)
             return response;      
         } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+                sessionStorage.clear();
+            }
             return rejectWithValue(error.message)      
         }
     }

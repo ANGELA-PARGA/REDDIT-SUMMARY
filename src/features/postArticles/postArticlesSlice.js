@@ -12,9 +12,32 @@ export const loadPostInfo = createAsyncThunk(
     'load/loadPostInfo',
     async (link, { rejectWithValue }) => {
         try {
+            const cacheKey = `cache_postInfo_${link}`;
+            const cacheTimestampKey = `cache_postInfo_${link}_timestamp`;
+            const cachedData = sessionStorage.getItem(cacheKey);
+            const cachedTimestamp = sessionStorage.getItem(cacheTimestampKey);
+            if (cachedTimestamp) {
+                const currentTime = new Date().getTime();
+                const threeMinutesInMillis = 3 * 60 * 1000;
+                if (currentTime - parseInt(cachedTimestamp, 10) >= threeMinutesInMillis) {
+                    sessionStorage.removeItem(cacheKey);
+                    sessionStorage.removeItem(cacheTimestampKey);
+                }
+            }
+        
+            if (cachedData) {
+                const cachedDataParsed = JSON.parse(cachedData);
+                console.log('returning post info data in caché', cachedDataParsed);
+                return cachedDataParsed;
+            }
             const response = await getPostInfo(link);
+            sessionStorage.setItem(cacheKey, JSON.stringify(response));
+            sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
             return response;      
         } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+                sessionStorage.clear();
+            }
             return rejectWithValue(error.message)     
         }
     }

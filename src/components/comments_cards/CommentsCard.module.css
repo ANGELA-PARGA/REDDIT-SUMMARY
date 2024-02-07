@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1.5rem  
+    gap: 1rem  
 }
 .cardInfo p{
     color: rgb(163, 26, 26);
@@ -33,4 +33,6 @@
 .showHideReply{
     cursor: pointer;
 }
-
+.commentVotes{
+    font-size: 0.7rem;
+}

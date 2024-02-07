@@ -60,6 +60,7 @@ a{
     flex-direction: column;
     justify-content: stretch;
     gap: 1rem;
+    width: 90%;
 }
 
 .gridSidebar{

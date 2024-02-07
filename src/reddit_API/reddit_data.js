@@ -1,6 +1,6 @@
 export const API_ROOT = 'https://www.reddit.com';
 
-export const search = async ({ searchTerm = '', after = '', before = '', count = '0' }) => {
+export const search = async ({ searchTerm = '', after = '', before = '', count }) => {
     try {
         const queryParams = new URLSearchParams({
             q: searchTerm,

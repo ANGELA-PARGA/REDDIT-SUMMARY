@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchResultSlice from '../features/searchResults/searchResultsSlice'
 import postArticlesSlice from '../features/postArticles/postArticlesSlice';
-import loadingPostsSlice from '../features/postFeeds/postsFeedsSlice';
+import loadingPostsSlice from '../features/bestPosts/bestPostsSlice';
 import loadingSubredditsSlice from '../features/subreddits/subredditsSlice';
 import subredditPostsSlice from '../features/subredditPosts/subredditPostsSlice';
 

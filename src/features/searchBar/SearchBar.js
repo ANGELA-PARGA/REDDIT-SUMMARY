@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, createSearchParams, Link } from 'react-router-dom';
-import { resetCount } from '../postFeeds/postsFeedsSlice';
+import { resetCount } from '../bestPosts/bestPostsSlice';
 import {resetCountInSearch} from '../searchResults/searchResultsSlice'
 import { setSearchTerm } from '../searchResults/searchResultsSlice';
 import styles from './SearchBar.module.css'

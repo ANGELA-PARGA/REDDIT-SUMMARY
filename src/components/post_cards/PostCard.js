@@ -49,7 +49,7 @@ export function PostCard({data, fullText}){
                         loading="lazy" 
                         alt="thumbnail" 
                         onError={handleOnError}  
-                        style={{ display: load ? 'block' : 'none' , height: '140px', width: '140px'}}
+                        style={{ display: load ? 'block' : 'none' , height: 'auto', width: '140px'}}
                     />}
                     {!load && media ?  
                     <video 
@@ -59,13 +59,14 @@ export function PostCard({data, fullText}){
                     </video> :
                     <></>
                     }
-                    <a href={data.url_overridden_by_dest} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        
-                    >
-                        {data.url_overridden_by_dest}
-                    </a>
+                    <div className={styles.alinks} >
+                        <a href={data.url_overridden_by_dest} 
+                            target="_blank" 
+                            rel="noopener noreferrer"                        
+                        >
+                            {data.url_overridden_by_dest}
+                        </a>
+                    </div>
                 </div> 
             }
             <div className={styles.text}>
