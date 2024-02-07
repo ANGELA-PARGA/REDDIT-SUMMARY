@@ -26,7 +26,8 @@ export function PostCard({data, fullText}){
         <div className={`${styles.card} ${fullText ? styles.fullText : ''}`}>
             <div className={styles.cardInfo}>
                 {!data.icon_img ? 
-                <UilImageBlock size={32} color='#D42B2B'/>: <img src={data.icon_img} alt="icon" />
+                    <UilImageBlock size={32} color='#D42B2B'/>: 
+                    <img src={`${data.icon_img}?auto=webp&amp`} alt="icon" style={{ height: '32px', width: '32px'}}/>
                 }
                 <Link to={`/r/${data.subreddit}/`} className={styles.subredditLink}>r/{data.subreddit_name_prefixed}</Link>
                 <p className={styles.author}><span>Posted by:</span> u/{data.author}</p>                
@@ -37,9 +38,9 @@ export function PostCard({data, fullText}){
                     <img 
                         loading="lazy"  
                         sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px"
-                        src={data.url} 
+                        src={`${data.url}?auto=webp&amp`} 
                         alt='embded'
-                        style={{maxHeight: '600px'}}
+                        style={{maxHeight: '400px'}}
                     /> 
                 </div> : 
                 <div className={styles.embdedInfo}>
@@ -69,9 +70,10 @@ export function PostCard({data, fullText}){
                     </div>
                 </div> 
             }
-            <div className={styles.text}>
-                <ReactMarkdown className={styles.markdown}>{data.selftext}</ReactMarkdown>
-            </div>
+            {data.selftext ? 
+                <div className={styles.text}>
+                    <ReactMarkdown className={styles.markdown}>{data.selftext}</ReactMarkdown>
+                </div> : <></>}
             <div className={styles.cardInfo}>
                 <div>
                     <UilCommentChartLine size={20} color='#D42B2B'/>

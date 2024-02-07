@@ -10,7 +10,6 @@ const initialState = {
 export const loadSubreddits = createAsyncThunk(
     'load/loadSubreddits',
     async (_, { rejectWithValue }) => {
-        console.log('LOADSUBREDDITS: calling loadSubreddits in thunk')
         try {
             const cacheKey = 'cache_subreddits';
             const cacheTimestampKey = 'cache_subreddits_timestamp';
@@ -28,13 +27,11 @@ export const loadSubreddits = createAsyncThunk(
         
             if (cachedData) {
                 const cachedDataParsed = JSON.parse(cachedData);
-                console.log('returning subreddits data in caché', cachedDataParsed);
                 return cachedDataParsed;
             }
             const response = await fetchSubreddits();
             sessionStorage.setItem(cacheKey, JSON.stringify(response));
             sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
-            console.log('LOADSUBREDDITS: datos del fetching', response)
             return response;      
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
@@ -48,7 +45,6 @@ export const loadSubreddits = createAsyncThunk(
 export const fetchSubredditsbySearch = createAsyncThunk(
     'search/fetchSubredditsbySearch',
     async (term, { rejectWithValue }) => {
-        console.log('FETCH SUBREDDITS: calling fetchSubredditsbySearch in thunk')
         try {
             const cacheKey = `cache_subreddits_${term}`;
             const cacheTimestampKey = `cache_subreddits_${term}_timestamp`;
@@ -66,13 +62,11 @@ export const fetchSubredditsbySearch = createAsyncThunk(
         
             if (cachedData) {
                 const cachedDataParsed = JSON.parse(cachedData);
-                console.log('returning subreddits by search data in caché', cachedDataParsed);
                 return cachedDataParsed;
             }
             const response = await getSubredditsbySearch(term);
             sessionStorage.setItem(cacheKey, JSON.stringify(response));
             sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
-            console.log('FETCH SUBREDDITS: datos del fetching:', response)
             return response;      
         } catch (error) {
             if (error.name === 'QuotaExceededError') {

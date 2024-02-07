@@ -48,7 +48,7 @@ export const getSubredditsbySearch = async (searchTerm) => {
     }     
 };
 
-export async function fetchBestPost(after = '', before = '', count = '0'){
+export async function fetchBestPost(after = '', before = '', count){
     try {
         const queryParams = new URLSearchParams({
             after,

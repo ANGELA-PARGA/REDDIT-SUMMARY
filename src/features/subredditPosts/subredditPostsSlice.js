@@ -29,7 +29,6 @@ export const loadSubredditPosts = createAsyncThunk(
         
             if (cachedData) {
                 const cachedDataParsed = JSON.parse(cachedData);
-                console.log('returning subreddits posts data in caché', cachedDataParsed);
                 return cachedDataParsed;
             }
             const response = await getSubredditPosts(link);

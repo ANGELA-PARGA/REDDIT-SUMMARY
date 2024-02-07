@@ -8,16 +8,17 @@ const initialState = {
   searchPostsError: null,
   nextData: '',
   prevData: '',
-  countInSearch: '0'
+  countInSearch: 0,
+  id: 1
 };
 
 export const fetchSearchData = createAsyncThunk(
   'search/fetchSearchData',
-  async ({searchTerm, after, before, count}, { rejectWithValue }) => {
-    console.log('FETCH SEARCH: calling fetchSearchData in thunk')
+  async ({searchTerm, after, before, count}, { rejectWithValue, getState }) => {
+    const id = getState().search.id
     try {
-      const cacheKey = `cache_searchPosts_${searchTerm}_${after}_${before}`;
-      const cacheTimestampKey = `cache_searchPosts_${searchTerm}_${after}_${before}_timestamp`;
+      const cacheKey = `cache_searchPosts_${searchTerm}_${id}`;
+      const cacheTimestampKey = `cache_searchPosts_${searchTerm}_${id}_timestamp`;
       const cachedData = sessionStorage.getItem(cacheKey);
       const cachedTimestamp = sessionStorage.getItem(cacheTimestampKey);
 
@@ -32,13 +33,11 @@ export const fetchSearchData = createAsyncThunk(
 
     if (cachedData) {
         const cachedDataParsed = JSON.parse(cachedData);
-        console.log('returning posts by search data in caché', cachedDataParsed);
         return cachedDataParsed;
     }
       const response = await search({searchTerm, after, before, count});
       sessionStorage.setItem(cacheKey, JSON.stringify(response));
       sessionStorage.setItem(cacheTimestampKey, new Date().getTime().toString());
-      console.log('FETCH SEARCH: datos del fetching', response)
       return response;      
     } catch (error) {
       if (error.name === 'QuotaExceededError') {
@@ -54,16 +53,16 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     increment(state){
-      state.countInSearch = (parseInt(state.countInSearch, 10) + 25).toString();
-      console.log('count increasing in search:', state.countInSearch)
+      state.countInSearch += 25
+      state.id += 1 
     },
     decrement(state){
-        state.countInSearch = Math.max(0, parseInt(state.countInSearch, 10) - 25).toString();
-        console.log('count decreasing in search:', state.countInSearch)
+        state.countInSearch = Math.max(0, state.countInSearch - 25)
+        state.id -= 1
     },
     resetCountInSearch(state){
         state.countInSearch = 0
-        console.log('count resetting in search:', state.countInSearch)
+        state.id = 1
     },
     setSearchTerm(state, action) {
       state.searchTerm = action.payload;
@@ -77,12 +76,8 @@ export const searchSlice = createSlice({
       .addCase(fetchSearchData.fulfilled, (state, action) => {
         state.searchPostStatus = 'fulfilled';
         state.searchPosts = action.payload.data.children;
-        console.log('datos del estado search', state.searchPosts) 
         state.nextData = action.payload.data.after;
-        console.log('datos de after search', state.nextData) 
         state.prevData = action.payload.data.before;
-        console.log('datos de before search', state.prevData)
-        console.log('datos del count de search', state.countInSearch)
       })
       .addCase(fetchSearchData.rejected, (state, action) => {
         state.searchPostStatus = 'rejected';

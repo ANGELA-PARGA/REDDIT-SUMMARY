@@ -27,7 +27,6 @@ export const loadPostInfo = createAsyncThunk(
         
             if (cachedData) {
                 const cachedDataParsed = JSON.parse(cachedData);
-                console.log('returning post info data in caché', cachedDataParsed);
                 return cachedDataParsed;
             }
             const response = await getPostInfo(link);
